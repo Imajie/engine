@@ -33,7 +33,7 @@ void main()
     vec4 color = ambient + diffuse + specular;
     color.a = 1.0;
 
-    //gl_FragColor = color;//*texture2D(sampler, texCoord);
+    gl_FragColor = color;//*texture2D(sampler, texCoord);
 
-	gl_FragColor = vec4(ambientProd, 1.0);
+	//gl_FragColor = vec4(ambientProd, 1.0);
 }
