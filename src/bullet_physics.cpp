@@ -5,6 +5,7 @@
  */
 
 #include <btBulletDynamicsCommon.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include "bullet_physics.h"
 #include <algorithm>
 
@@ -15,6 +16,7 @@ BulletPhysics::BulletPhysics()
 {
 	// broadphase algorithm
 	broadphase = new btDbvtBroadphase();
+	broadphase->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
 
 	// collsion setup
 	collisionConfig = new btDefaultCollisionConfiguration();
@@ -25,6 +27,7 @@ BulletPhysics::BulletPhysics()
 
 	// create the world
 	world = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfig);
+	world->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
 }
 
 /*
@@ -60,7 +63,13 @@ BulletPhysics::~BulletPhysics()
  */
 btRigidBody* BulletPhysics::addObject(double mass, btDefaultMotionState *motionState, btCollisionShape *collisionShape, btVector3 inertia)
 {
-	btRigidBody *body = new btRigidBody(btRigidBody::btRigidBodyConstructionInfo(mass, motionState, collisionShape, inertia));
+	btRigidBody::btRigidBodyConstructionInfo info = btRigidBody::btRigidBodyConstructionInfo(mass, motionState, collisionShape, inertia);
+
+	info.m_angularDamping = 0.2;
+	info.m_linearDamping = 0.2;
+	info.m_friction = 0.2;
+
+	btRigidBody *body = new btRigidBody( info );
 	world->addRigidBody(body);
 	objects.push_back(body);
 	collisionShapes.push_back(collisionShape);

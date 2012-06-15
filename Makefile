@@ -550,7 +550,158 @@ src/bullet_physics.o: /usr/include/bullet/BulletDynamics/Vehicle/btVehicleRaycas
 src/bullet_physics.o: /usr/include/bullet/BulletDynamics/Vehicle/btWheelInfo.h
 src/bullet_physics.o: /usr/include/bullet/BulletDynamics/Dynamics/btActionInterface.h
 src/bullet_physics.o: /usr/include/bullet/BulletDynamics/Dynamics/btRigidBody.h
+src/bullet_physics.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btGhostObject.h
+src/bullet_physics.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
+src/bullet_physics.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h
 src/bullet_physics.o: src/bullet_physics.h
+src/player.o: /usr/include/bullet/btBulletDynamicsCommon.h
+src/player.o: /usr/include/bullet/btBulletCollisionCommon.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h
+src/player.o: /usr/include/bullet/LinearMath/btVector3.h
+src/player.o: /usr/include/bullet/LinearMath/btScalar.h /usr/include/math.h
+src/player.o: /usr/include/features.h /usr/include/sys/cdefs.h
+src/player.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+src/player.o: /usr/include/gnu/stubs-64.h /usr/include/bits/huge_val.h
+src/player.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+src/player.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+src/player.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+src/player.o: /usr/include/stdlib.h /usr/include/bits/waitflags.h
+src/player.o: /usr/include/bits/waitstatus.h /usr/include/endian.h
+src/player.o: /usr/include/bits/endian.h /usr/include/bits/byteswap.h
+src/player.o: /usr/include/xlocale.h /usr/include/sys/types.h
+src/player.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+src/player.o: /usr/include/time.h /usr/include/sys/select.h
+src/player.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+src/player.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+src/player.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+src/player.o: /usr/include/assert.h /usr/include/bullet/LinearMath/btMinMax.h
+src/player.o: /usr/include/bullet/LinearMath/btTransform.h
+src/player.o: /usr/include/bullet/LinearMath/btMatrix3x3.h
+src/player.o: /usr/include/bullet/LinearMath/btVector3.h
+src/player.o: /usr/include/bullet/LinearMath/btQuaternion.h
+src/player.o: /usr/include/bullet/LinearMath/btQuadWord.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionObject.h
+src/player.o: /usr/include/bullet/LinearMath/btMotionState.h
+src/player.o: /usr/include/bullet/LinearMath/btTransform.h
+src/player.o: /usr/include/bullet/LinearMath/btAlignedAllocator.h
+src/player.o: /usr/include/bullet/LinearMath/btAlignedObjectArray.h
+src/player.o: /usr/include/bullet/LinearMath/btAlignedAllocator.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btDispatcher.h
+src/player.o: /usr/include/bullet/LinearMath/btScalar.h
+src/player.o: /usr/include/bullet/BulletCollision/NarrowPhaseCollision/btPersistentManifold.h
+src/player.o: /usr/include/bullet/BulletCollision/NarrowPhaseCollision/btManifoldPoint.h
+src/player.o: /usr/include/bullet/LinearMath/btTransformUtil.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btManifoldResult.h
+src/player.o: /usr/include/bullet/BulletCollision/NarrowPhaseCollision/btDiscreteCollisionDetectorInterface.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionCreateFunc.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCache.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btBroadphaseInterface.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionObject.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btBoxShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btPolyhedralConvexShape.h
+src/player.o: /usr/include/bullet/LinearMath/btMatrix3x3.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConvexInternalShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConvexShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btCollisionShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btCollisionMargin.h
+src/player.o: /usr/include/bullet/LinearMath/btAabbUtil2.h
+src/player.o: /usr/include/bullet/LinearMath/btMinMax.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btSphereShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btCapsuleShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btCylinderShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btBoxShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConeShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btStaticPlaneShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConcaveShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleCallback.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConvexHullShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleMesh.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btStridingMeshInterface.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleMeshShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btOptimizedBvh.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btQuantizedBvh.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleInfoMap.h
+src/player.o: /usr/include/bullet/LinearMath/btHashMap.h
+src/player.o: /usr/include/bullet/LinearMath/btAlignedObjectArray.h
+src/player.o: /usr/include/bullet/LinearMath/btSerializer.h
+src/player.o: /usr/include/bullet/LinearMath/btStackAlloc.h
+src/player.o: /usr/include/bullet/LinearMath/btHashMap.h
+src/player.o: /usr/include/memory.h /usr/include/string.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleMeshShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btCompoundShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTetrahedronShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btEmptyShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btMultiSphereShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionShapes/btUniformScalingShape.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btActivatingCollisionAlgorithm.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionCreateFunc.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionConfiguration.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btSimpleBroadphase.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCache.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btDbvt.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btMultiSapBroadphase.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h
+src/player.o: /usr/include/bullet/LinearMath/btQuaternion.h
+src/player.o: /usr/include/bullet/LinearMath/btDefaultMotionState.h
+src/player.o: /usr/include/bullet/LinearMath/btMotionState.h
+src/player.o: /usr/include/bullet/LinearMath/btQuickprof.h
+src/player.o: /usr/include/stdio.h /usr/include/libio.h
+src/player.o: /usr/include/_G_config.h /usr/include/wchar.h
+src/player.o: /usr/include/bits/wchar.h /usr/include/bits/stdio_lim.h
+src/player.o: /usr/include/bits/sys_errlist.h
+src/player.o: /usr/include/bullet/LinearMath/btIDebugDraw.h
+src/player.o: /usr/include/bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h
+src/player.o: /usr/include/bullet/BulletDynamics/Dynamics/btDynamicsWorld.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btContactSolverInfo.h
+src/player.o: /usr/include/bullet/BulletDynamics/Dynamics/btSimpleDynamicsWorld.h
+src/player.o: /usr/include/bullet/BulletDynamics/Dynamics/btRigidBody.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btJacobianEntry.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btTypedConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btSolverConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btSolverBody.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btConeTwistConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btSliderConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btUniversalConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btHinge2Constraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btConstraintSolver.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btContactConstraint.h
+src/player.o: /usr/include/bullet/BulletCollision/NarrowPhaseCollision/btManifoldPoint.h
+src/player.o: /usr/include/bullet/BulletDynamics/Vehicle/btRaycastVehicle.h
+src/player.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btTypedConstraint.h
+src/player.o: /usr/include/bullet/BulletDynamics/Vehicle/btVehicleRaycaster.h
+src/player.o: /usr/include/bullet/BulletDynamics/Vehicle/btWheelInfo.h
+src/player.o: /usr/include/bullet/BulletDynamics/Dynamics/btActionInterface.h
+src/player.o: /usr/include/bullet/BulletDynamics/Dynamics/btRigidBody.h
+src/player.o: src/object.h src/object_gl.h /usr/include/GL/glew.h
+src/player.o: /usr/include/stdint.h /usr/include/GL/glu.h
+src/player.o: /usr/include/GL/gl.h src/player.h
+src/player.o: /usr/include/bullet/BulletDynamics/Character/btKinematicCharacterController.h
+src/player.o: /usr/include/bullet/BulletDynamics/Character/btCharacterControllerInterface.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btGhostObject.h
+src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
+src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h
 src/world.o: src/gl_graphics.h src/object_gl.h /usr/include/GL/glew.h
 src/world.o: /usr/include/stdint.h /usr/include/features.h
 src/world.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
@@ -886,7 +1037,12 @@ src/world.o: /usr/include/bullet/BulletDynamics/Vehicle/btVehicleRaycaster.h
 src/world.o: /usr/include/bullet/BulletDynamics/Vehicle/btWheelInfo.h
 src/world.o: /usr/include/bullet/BulletDynamics/Dynamics/btActionInterface.h
 src/world.o: /usr/include/bullet/BulletDynamics/Dynamics/btRigidBody.h
-src/world.o: src/bullet_physics.h src/world.h src/object.h
+src/world.o: src/bullet_physics.h src/world.h src/object.h src/player.h
+src/world.o: /usr/include/bullet/BulletDynamics/Character/btKinematicCharacterController.h
+src/world.o: /usr/include/bullet/BulletDynamics/Character/btCharacterControllerInterface.h
+src/world.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btGhostObject.h
+src/world.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
+src/world.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h
 src/world.o: /usr/include/boost/bind.hpp /usr/include/boost/bind/bind.hpp
 src/world.o: /usr/include/boost/config.hpp
 src/world.o: /usr/include/boost/config/select_compiler_config.hpp
@@ -1235,7 +1391,13 @@ src/main.o: /usr/include/bullet/BulletDynamics/Vehicle/btVehicleRaycaster.h
 src/main.o: /usr/include/bullet/BulletDynamics/Vehicle/btWheelInfo.h
 src/main.o: /usr/include/bullet/BulletDynamics/Dynamics/btActionInterface.h
 src/main.o: /usr/include/bullet/BulletDynamics/Dynamics/btRigidBody.h
-src/main.o: src/bullet_physics.h src/object.h src/shapes.h
+src/main.o: src/bullet_physics.h src/object.h src/player.h
+src/main.o: /usr/include/bullet/BulletDynamics/Character/btKinematicCharacterController.h
+src/main.o: /usr/include/bullet/BulletDynamics/Character/btCharacterControllerInterface.h
+src/main.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btGhostObject.h
+src/main.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
+src/main.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h
+src/main.o: src/shapes.h
 src/shapes.o: /usr/include/math.h /usr/include/features.h
 src/shapes.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
 src/shapes.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h
@@ -1574,7 +1736,12 @@ src/shapes.o: /usr/include/boost/preprocessor/enum.hpp
 src/shapes.o: /usr/include/boost/preprocessor/repetition/enum.hpp
 src/shapes.o: /usr/include/boost/preprocessor/enum_params.hpp
 src/shapes.o: /usr/include/boost/preprocessor/repetition/enum_params.hpp
-src/shapes.o: src/bullet_physics.h
+src/shapes.o: src/bullet_physics.h src/player.h
+src/shapes.o: /usr/include/bullet/BulletDynamics/Character/btKinematicCharacterController.h
+src/shapes.o: /usr/include/bullet/BulletDynamics/Character/btCharacterControllerInterface.h
+src/shapes.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btGhostObject.h
+src/shapes.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
+src/shapes.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h
 src/object.o: src/object_gl.h /usr/include/GL/glew.h /usr/include/stdint.h
 src/object.o: /usr/include/features.h /usr/include/sys/cdefs.h
 src/object.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
@@ -1912,4 +2079,9 @@ src/object.o: /usr/include/boost/preprocessor/enum.hpp
 src/object.o: /usr/include/boost/preprocessor/repetition/enum.hpp
 src/object.o: /usr/include/boost/preprocessor/enum_params.hpp
 src/object.o: /usr/include/boost/preprocessor/repetition/enum_params.hpp
-src/object.o: src/bullet_physics.h
+src/object.o: src/bullet_physics.h src/player.h
+src/object.o: /usr/include/bullet/BulletDynamics/Character/btKinematicCharacterController.h
+src/object.o: /usr/include/bullet/BulletDynamics/Character/btCharacterControllerInterface.h
+src/object.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btGhostObject.h
+src/object.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
+src/object.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h

@@ -17,6 +17,9 @@
 
 bool GLGraphics::is_init = false;
 
+#define CAMERA_MOVE_SPEED 0.1
+#define CAMERA_TURN_SPEED 0.001
+
 /*
  * Initialize SDL
  */
@@ -25,6 +28,15 @@ int GLGraphics::init()
 	int error;
 	if( !(error = SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER )) )
 	{
+		// enable keyrepeat
+		SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
+		
+		// grab mouse
+		SDL_WM_GrabInput(SDL_GRAB_ON);
+		SDL_ShowCursor(SDL_DISABLE);
+
+		SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL, 1);
+
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 
@@ -73,8 +85,8 @@ GLGraphics::GLGraphics(unsigned int w, unsigned int h, const char *title)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-// set the modelview matrix
-void GLGraphics::setModelView( btTransform model )
+// set the model matrix
+void GLGraphics::setModelTransform( btTransform model )
 {
 	float mat[16];
 	btTransform modelview = viewTrans*model;
@@ -82,21 +94,6 @@ void GLGraphics::setModelView( btTransform model )
 
 	glUniformMatrix4fv( modelView_loc, 1, GL_FALSE, mat );
 	glUniformMatrix4fv( projection_loc, 1, GL_TRUE, projection_mat );
-
-	/*
-	printf("model_view = \n\t%f %f %f %f\n\t%f %f %f %f\n\t%f %f %f %f\n\t%f %f %f %f\n",
-			mat[0], mat[4], mat[8],  mat[12], 
-			mat[1], mat[5], mat[9],  mat[13], 
-			mat[2], mat[6], mat[10], mat[14], 
-			mat[3], mat[7], mat[11], mat[15]
-		  );
-	printf("projection_mat = \n\t%f %f %f %f\n\t%f %f %f %f\n\t%f %f %f %f\n\t%f %f %f %f\n",
-			projection_mat[0], projection_mat[4], projection_mat[8],  projection_mat[12], 
-			projection_mat[1], projection_mat[5], projection_mat[9],  projection_mat[13], 
-			projection_mat[2], projection_mat[6], projection_mat[10], projection_mat[14], 
-			projection_mat[3], projection_mat[7], projection_mat[11], projection_mat[15]
-		  );
-  */
 }
 
 // reset the vertex attrib pointers
@@ -123,7 +120,7 @@ void GLGraphics::setLightingParams( float* ambient, float* diffuse, float* specu
 	float data[4];
 	data[0] = 0.0;
 	data[1] = 0.0;
-	data[2] = -10.0;
+	data[2] = 0.0;
 	data[3] = 1.0;
 
 	glUniform4fv( light_loc, 1, data );
@@ -138,21 +135,9 @@ void GLGraphics::setLightingParams( float* ambient, float* diffuse, float* specu
 	*/
 }
 
-void GLGraphics::lookat(btVector3 e, btVector3 l, btVector3 up)
+void GLGraphics::setViewTransform( btTransform view )
 {
-	btVector3 n = (e-l).normalized();
-	btVector3 u = up.cross(n).normalized();
-	btVector3 v = n.cross(u).normalized();
-
-	btVector3 trans(-(u.dot(e)), -(v.dot(e)), -(n.dot(e)));
-	btMatrix3x3 rot;
-
-	rot[0] = u;
-	rot[1] = v;
-	rot[2] = n;
-
-	viewTrans = btTransform(rot, trans);
-
+	viewTrans = view;
 }
 
 void GLGraphics::perspective( float fovy, float aspect, float near, float far )
@@ -172,12 +157,17 @@ void GLGraphics::perspective( float fovy, float aspect, float near, float far )
 /*
  * set callbacks
  */
-void GLGraphics::setMouseCallback(boost::function<void (int button, int state, int x, int y)> func)
+void GLGraphics::setMousePressCallback(boost::function<void (int button, int state, int x, int y)> func)
 {
-	mouse_cb = func;
+	mouse_press_cb = func;
 }
 
-void GLGraphics::setKeyboardCallback(boost::function<void (SDLKey key, int x, int y)> func)
+void GLGraphics::setMouseMovedCallback(boost::function<void (int dx, int dy, int x, int y)> func)
+{
+	mouse_moved_cb = func;
+}
+
+void GLGraphics::setKeyboardCallback(boost::function<void (SDLKey key, int state, int x, int y)> func)
 {
 	keyboard_cb = func;
 }
@@ -205,6 +195,8 @@ void GLGraphics::main_loop( boost::function<void (double delta_t)> gameloop, dou
 
 		double elapsed = (now.tv_sec - last.tv_sec) + (now.tv_nsec - last.tv_nsec)/1000000000.0;
 
+		int forward = 0;
+		int side = 0;
 		switch(event.type) {
 			case SDL_USEREVENT:
 				switch(event.user.code)
@@ -215,7 +207,6 @@ void GLGraphics::main_loop( boost::function<void (double delta_t)> gameloop, dou
 
 						gameloop(elapsed);
 
-						glFlush();
 						SDL_GL_SwapBuffers();
 
 						last.tv_sec = now.tv_sec;
@@ -225,21 +216,29 @@ void GLGraphics::main_loop( boost::function<void (double delta_t)> gameloop, dou
 				break;
 
 			case SDL_KEYDOWN:
-				//printf("keydown\n");
+			case SDL_KEYUP:
 				if( keyboard_cb )
-					keyboard_cb( event.key.keysym.sym, mouse_x, mouse_y );
+					keyboard_cb( event.key.keysym.sym, event.key.state, mouse_x, mouse_y );
+
+				switch( event.key.keysym.sym )
+				{
+					case SDLK_ESCAPE:
+						done = true;
+						break;
+				}
 				break;
 
 			case SDL_MOUSEMOTION:
-				//printf("mouse moved\n");
 				mouse_x = event.motion.x;
 				mouse_y = event.motion.y;
+
+				if( mouse_moved_cb )
+					mouse_moved_cb(event.motion.xrel, event.motion.yrel, event.motion.x, event.motion.y);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_MOUSEBUTTONUP:
-				//printf("mouse press/release\n");
-				if( mouse_cb )
-					mouse_cb(event.button.button, event.button.state, event.button.x, event.button.y);
+				if( mouse_press_cb )
+					mouse_press_cb(event.button.button, event.button.state, event.button.x, event.button.y);
 				break;
 
 			case SDL_QUIT:

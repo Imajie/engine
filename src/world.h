@@ -9,6 +9,7 @@
 #include "gl_graphics.h"
 #include "bullet_physics.h"
 #include "object.h"
+#include "player.h"
 
 class World
 {
@@ -49,19 +50,31 @@ class World
 		void removeObject( Object *object );
 
 		/*
+		 * Set Player
+		 */
+		void setPlayer( Player *player );
+
+		/*
 		 * run main loop
 		 */
 		void main_loop(void);
 
 	private:
-		GLGraphics    *graphics;
-		BulletPhysics *physics;
+		GLGraphics		*graphics;
+		BulletPhysics	*physics;
+		Player			*player;
 
 		// objects in the scene
 		std::vector<Object*> objects;
 
+		// player movement
+		int forward, backward, left, right, dx, dy, jump;
+
 		// callbacks
 		void gameloop(double elapsed);
+		void keyboard(SDLKey key, int state, int x, int y);
+		void mouse_press(int button, int state, int x, int y);
+		void mouse_moved(int dx, int dy, int x, int y);
 };
 
 #endif

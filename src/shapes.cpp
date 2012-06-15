@@ -20,9 +20,13 @@
  *
  * Can only use calls to addTriangle()
  */
-void makeCube (World *world, int subdiv, double mass, btVector3 color, btQuaternion orientation, btVector3 location)
+void makeCube (World *world, btVector3 scale, int subdiv, double mass, btVector3 color, btQuaternion orientation, btVector3 location)
 {
 	clearShape();
+
+	double x = scale.getX() / 2.0;
+	double y = scale.getY() / 2.0;
+	double z = scale.getZ() / 2.0;
 
     float subdivisions = subdiv;
     for( int i = 0; i < subdiv; i++ )
@@ -30,91 +34,91 @@ void makeCube (World *world, int subdiv, double mass, btVector3 color, btQuatern
         for( int j = 0; j < subdiv; j++ )
         {
             // x-y face upper
-            addTriangle(0.5-(i+1)/subdivisions, 0.5-j/subdivisions, 0.5,
-                        0.5-i/subdivisions, 0.5-(j+1)/subdivisions, 0.5,
-                        0.5-i/subdivisions, 0.5-j/subdivisions, 0.5,
+            addTriangle(x-(i+1)/subdivisions, y-(j+0)/subdivisions, z, 
+						x-(i+0)/subdivisions, y-(j+1)/subdivisions, z,
+                        x-(i+0)/subdivisions, y-(j+0)/subdivisions, z,
                         (i+1)/subdivisions, j/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions,
                         i/subdivisions,     j/subdivisions );
 
-            addTriangle(0.5-(i+1)/subdivisions, 0.5-j/subdivisions, 0.5,
-                        0.5-(i+1)/subdivisions, 0.5-(j+1)/subdivisions, 0.5,
-                        0.5-i/subdivisions, 0.5-(j+1)/subdivisions, 0.5,
+            addTriangle(x-(i+1)/subdivisions, y-(j+0)/subdivisions, z,
+                        x-(i+1)/subdivisions, y-(j+1)/subdivisions, z,
+                        x-(i+0)/subdivisions, y-(j+1)/subdivisions, z,
                         (i+1)/subdivisions, j/subdivisions,
                         (i+1)/subdivisions, (j+1)/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions );
 
             // x-y face  lower
-            addTriangle(0.5-i/subdivisions, 0.5-j/subdivisions, -0.5,
-                        0.5-i/subdivisions, 0.5-(j+1)/subdivisions, -0.5,
-                        0.5-(i+1)/subdivisions, 0.5-j/subdivisions, -0.5,
+            addTriangle(x-(i+0)/subdivisions, y-(j+0)/subdivisions, -z,
+                        x-(i+0)/subdivisions, y-(j+1)/subdivisions, -z,
+                        x-(i+1)/subdivisions, y-(j+0)/subdivisions, -z,
                         i/subdivisions,     j/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions,
                         (i+1)/subdivisions, j/subdivisions );
 
-            addTriangle(0.5-(i+1)/subdivisions, 0.5-j/subdivisions, -0.5,
-                        0.5-i/subdivisions, 0.5-(j+1)/subdivisions, -0.5,
-                        0.5-(i+1)/subdivisions, 0.5-(j+1)/subdivisions, -0.5,
+            addTriangle(x-(i+1)/subdivisions, y-(j+0)/subdivisions, -z,
+                        x-(i+0)/subdivisions, y-(j+1)/subdivisions, -z,
+                        x-(i+1)/subdivisions, y-(j+1)/subdivisions, -z,
                         (i+1)/subdivisions, j/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions,
                         (i+1)/subdivisions, (j+1)/subdivisions );
 
             // x-z face upper
-            addTriangle(0.5-i/subdivisions, 0.5, 0.5-j/subdivisions,
-                        0.5-i/subdivisions, 0.5, 0.5-(j+1)/subdivisions,
-                        0.5-(i+1)/subdivisions, 0.5, 0.5-j/subdivisions,
+            addTriangle(x-(i+0)/subdivisions, y, z-(j+0)/subdivisions,
+                        x-(i+0)/subdivisions, y, z-(j+1)/subdivisions,
+                        x-(i+1)/subdivisions, y, z-(j+0)/subdivisions,
                         i/subdivisions,     j/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions,
                         (i+1)/subdivisions, j/subdivisions );
 
-            addTriangle(0.5-i/subdivisions, 0.5, 0.5-(j+1)/subdivisions,
-                        0.5-(i+1)/subdivisions, 0.5, 0.5-(j+1)/subdivisions,
-                        0.5-(i+1)/subdivisions, 0.5, 0.5-j/subdivisions,
+            addTriangle(x-(i+0)/subdivisions, y, z-(j+1)/subdivisions,
+                        x-(i+1)/subdivisions, y, z-(j+1)/subdivisions,
+                        x-(i+1)/subdivisions, y, z-(j+0)/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions,
                         (i+1)/subdivisions, (j+1)/subdivisions,
                         (i+1)/subdivisions, j/subdivisions );
 
             // x-z face lower
-            addTriangle(0.5-(i+1)/subdivisions, -0.5, 0.5-j/subdivisions,
-                        0.5-i/subdivisions, -0.5, 0.5-(j+1)/subdivisions,
-                        0.5-i/subdivisions, -0.5, 0.5-j/subdivisions,
+            addTriangle(x-(i+1)/subdivisions, -y, z-(j+0)/subdivisions,
+                        x-(i+0)/subdivisions, -y, z-(j+1)/subdivisions,
+                        x-(i+0)/subdivisions, -y, z-(j+0)/subdivisions,
                         (i+1)/subdivisions, j/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions,
                         i/subdivisions,     j/subdivisions );
 
-            addTriangle(0.5-(i+1)/subdivisions, -0.5, 0.5-(j+1)/subdivisions,
-                        0.5-i/subdivisions, -0.5, 0.5-(j+1)/subdivisions,
-                        0.5-(i+1)/subdivisions, -0.5, 0.5-j/subdivisions,
+            addTriangle(x-(i+1)/subdivisions, -y, z-(j+1)/subdivisions,
+                        x-(i+0)/subdivisions, -y, z-(j+1)/subdivisions,
+                        x-(i+1)/subdivisions, -y, z-(j+0)/subdivisions,
                         (i+1)/subdivisions, (j+1)/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions,
                         (i+1)/subdivisions, j/subdivisions );
 
             // y-z face upper
-            addTriangle(0.5, 0.5-(i+1)/subdivisions, 0.5-j/subdivisions,
-                        0.5, 0.5-i/subdivisions, 0.5-(j+1)/subdivisions,
-                        0.5, 0.5-i/subdivisions, 0.5-j/subdivisions,
+            addTriangle(x, y-(i+1)/subdivisions, z-(j+0)/subdivisions,
+                        x, y-(i+0)/subdivisions, z-(j+1)/subdivisions,
+                        x, y-(i+0)/subdivisions, z-(j+0)/subdivisions,
                         (i+1)/subdivisions, j/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions,
                         i/subdivisions,     j/subdivisions );
 
-            addTriangle(0.5, 0.5-(i+1)/subdivisions, 0.5-j/subdivisions,
-                        0.5, 0.5-(i+1)/subdivisions, 0.5-(j+1)/subdivisions,
-                        0.5, 0.5-i/subdivisions, 0.5-(j+1)/subdivisions,
+            addTriangle(x, y-(i+1)/subdivisions, z-(j+0)/subdivisions,
+                        x, y-(i+1)/subdivisions, z-(j+1)/subdivisions,
+                        x, y-(i+0)/subdivisions, z-(j+1)/subdivisions,
                         (i+1)/subdivisions, j/subdivisions,
                         (i+1)/subdivisions, (j+1)/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions );
 
             // y-z face lower
-            addTriangle(-0.5, 0.5-i/subdivisions, 0.5-j/subdivisions,
-                        -0.5, 0.5-i/subdivisions, 0.5-(j+1)/subdivisions,
-                        -0.5, 0.5-(i+1)/subdivisions, 0.5-j/subdivisions,
+            addTriangle(-x, y-(i+0)/subdivisions, z-(j+0)/subdivisions,
+                        -x, y-(i+0)/subdivisions, z-(j+1)/subdivisions,
+                        -x, y-(i+1)/subdivisions, z-(j+0)/subdivisions,
                         i/subdivisions,     j/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions,
                         (i+1)/subdivisions, j/subdivisions );
 
-            addTriangle(-0.5, 0.5-i/subdivisions, 0.5-(j+1)/subdivisions,
-                        -0.5, 0.5-(i+1)/subdivisions, 0.5-(j+1)/subdivisions,
-                        -0.5, 0.5-(i+1)/subdivisions, 0.5-j/subdivisions,
+            addTriangle(-x, y-(i+0)/subdivisions, z-(j+1)/subdivisions,
+                        -x, y-(i+1)/subdivisions, z-(j+1)/subdivisions,
+                        -x, y-(i+1)/subdivisions, z-(j+0)/subdivisions,
                         i/subdivisions,     (j+1)/subdivisions,
                         (i+1)/subdivisions, (j+1)/subdivisions,
                         (i+1)/subdivisions, j/subdivisions );
@@ -122,7 +126,7 @@ void makeCube (World *world, int subdiv, double mass, btVector3 color, btQuatern
         }
     }
 
-	btCollisionShape *collide = new btBoxShape(btVector3(0.5, 0.5, 0.5));
+	btCollisionShape *collide = new btBoxShape(scale.absolute()/2.0);
 	btVector3 inertia;
 
 	collide->calculateLocalInertia(mass, inertia);

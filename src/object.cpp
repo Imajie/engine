@@ -72,7 +72,7 @@ void Object::draw( void )
 	bullet->getMotionState()->getWorldTransform(trans);
 
 	// pass the transform to the shader
-	world->getGraphics()->setModelView( trans );
+	world->getGraphics()->setModelTransform( trans );
 
 	// set lighting
 	float ambient_diffuse[3];
