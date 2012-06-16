@@ -63,7 +63,7 @@ int main( int argc, char **argv )
 	*/
 
 	WorldLoader loader( world );
-	//loader.load( "test" );
+	loader.load( "test" );
 
 	// run main loop
 	world->main_loop();

@@ -41,6 +41,7 @@ class Player // : public Object
 		double walkVel, turnVel;
 		double cameraPitch;
 		double cameraYaw;
+		double width, height;
 
 		btKinematicCharacterController *controller;
 		btPairCachingGhostObject *ghost;

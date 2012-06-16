@@ -32,7 +32,7 @@ bool WorldLoader::load( const char *filename )
 	strcpy( assimp_name, filename );
 	strcpy( bullet_name, filename );
 
-	strcat( assimp_name, ".3ds" );
+	strcat( assimp_name, ".blend" );
 	strcat( bullet_name, ".bullet" );
 
 	// create importers

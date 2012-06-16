@@ -8,7 +8,7 @@
 #include "player.h"
 
 Player::Player( btVector3 position, double height, double width, double walkSpeed, double turnSpeed, double maxStep, double maxSlope )
-	: walkVel(walkSpeed), turnVel(turnSpeed), cameraPitch(0.0), cameraYaw(0.0)
+	: walkVel(walkSpeed), turnVel(turnSpeed), cameraPitch(0.0), cameraYaw(0.0), width(width), height(height)
 {
 	btTransform start;
 	start.setIdentity();
@@ -122,6 +122,8 @@ btTransform Player::getViewTransform(void)
 	rot *= btMatrix3x3( btQuaternion( btVector3(0, 1, 0), cameraYaw ) );
 	rot *= btMatrix3x3( btQuaternion( btVector3(1, 0, 0), cameraPitch ) );
 	trans.setBasis(rot);
+
+	trans.setOrigin(trans.getOrigin()+btVector3(0, height/2.0, 0));
 
 	return trans.inverse();
 }
