@@ -95,6 +95,9 @@ void Player::update( int forward, int backward, int left, int right, int dx, int
 
 
 	controller->setWalkDirection( walkDir*walkSpeed );
+
+	// make sure we don't have a rotation on the model
+	ghost->getWorldTransform().setRotation(btQuaternion(0,0,0,1));
 }
 
 

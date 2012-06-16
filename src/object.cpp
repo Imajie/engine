@@ -27,7 +27,8 @@ Object::Object(World *world, const aiScene *scene, const aiNode *node, btCollisi
 	if( node->mNumMeshes > 0 )
 		material = scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex];
 
-	createObject(&v_data_vec[0], v_data_vec.size(), &e_data_vec[0], e_data_vec.size(), body, material);
+	aiColor3D color(1,1,1);
+	createObject(&v_data_vec[0], v_data_vec.size(), &e_data_vec[0], e_data_vec.size(), body, color);//material);
 }
 
 // create object with specified data
@@ -35,7 +36,8 @@ Object::Object(World *world, vertex_t *v_data, size_t v_size, GLuint *e_data, si
 	:
 		world(world)
 {
-	createObject(v_data, v_size, e_data, e_size, body, NULL);
+	aiColor3D c(color.getX(), color.getY(), color.getZ());
+	createObject(v_data, v_size, e_data, e_size, body, c);
 }
 
 // cleanup memory
@@ -97,14 +99,15 @@ void Object::processNode( const aiScene *scene, const aiNode *node, std::vector<
 }
 
 // create the actual object
-void Object::createObject(vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btCollisionObject *body, aiMaterial *material)
+void Object::createObject(vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btCollisionObject *body, aiColor3D color) //aiMaterial *material)
 {
 	vertex_data = v_data;
 	vertex_count = v_size;
 	edges = e_data;
 	edge_count = e_size;
 	bullet = body;
-	this->material = material;
+	this->color = color;
+	//this->material = material;
 
 	// generate and bind OpenGL buffers
 	glGenBuffers( 2, gl_buf );
@@ -131,10 +134,11 @@ void Object::draw( void )
 	world->getGraphics()->setModelTransform(trans);
 
 	// set lighting
-	aiColor3D ambient_diffuse;
-	aiColor3D spec;
-	double shininess;
+	aiColor3D ambient_diffuse(color);
+	aiColor3D spec(1,1,1);
+	double shininess = 10;
 
+	/*
 	if( material )
 	{
 		if( material->Get(AI_MATKEY_COLOR_DIFFUSE, ambient_diffuse) != AI_SUCCESS )
@@ -154,6 +158,7 @@ void Object::draw( void )
 	{
 		//fprintf(stderr, "No material\n");
 	}
+	*/
 
 	world->getGraphics()->setLightingParams( ambient_diffuse, ambient_diffuse, spec, shininess );
 

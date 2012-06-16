@@ -33,7 +33,7 @@ class Object
 		void processNode( const aiScene *scene, const aiNode *node, std::vector<vertex_t> &v_data, std::vector<GLuint> &e_data );
 
 		// create the actual object
-		void createObject(vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btCollisionObject *body, aiMaterial *material);
+		void createObject(vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btCollisionObject *body, aiColor3D color); //aiMaterial *material);
 
 		// The world we are in
 		World *world;
@@ -52,8 +52,9 @@ class Object
 		GLuint *edges;
 		size_t edge_count;
 
-		// material
-		aiMaterial *material;
+		// material - TODO
+		//aiMaterial *material;
+		aiColor3D color;
 };
 
 #endif
