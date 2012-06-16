@@ -2,7 +2,7 @@ DIRS=src
 SOURCES=$(foreach dir,${DIRS},$(wildcard ${dir}/*.cpp))
 OBJS=$(subst .cpp,.o,${SOURCES})
 
-BULLET_LIBS=$(shell pkg-config --libs bullet)
+BULLET_LIBS=$(shell pkg-config --libs bullet) -lBulletWorldImporter
 BULLET_INCLUDES=$(shell pkg-config --cflags bullet)
 
 BOOST_LIBS=-lboost_system
@@ -14,12 +14,15 @@ GL_INCLUDES=
 SDL_LIBS=$(shell pkg-config --libs sdl)
 SDL_INCLUDES=$(shell pkg-config --cflags sdl)
 
+ASSIMP_LIBS=$(shell pkg-config --libs assimp)
+ASSIMP_INCLUDES=$(shell pkg-config --cflags assimp)
+
 TARGET=bullet_test
 
 CXX=g++ -std=gnu++11
-CXXFLAGS=-ggdb ${BULLET_INCLUDES} ${BOOST_INCLUDES} ${GL_INCLUDES} ${SDL_INCLUDES}
+CXXFLAGS=-ggdb ${BULLET_INCLUDES} ${BOOST_INCLUDES} ${GL_INCLUDES} ${SDL_INCLUDES} ${ASSIMP_INCLUDES}
 
-LIBS=${BULLET_LIBS} ${BOOST_LIBS} ${GL_LIBS} ${SDL_LIBS} -lrt
+LIBS=-lrt ${BULLET_LIBS} ${BOOST_LIBS} ${GL_LIBS} ${SDL_LIBS} ${ASSIMP_LIBS}
 
 .PHONY: all
 all: ${TARGET}
@@ -702,6 +705,388 @@ src/player.o: /usr/include/bullet/BulletDynamics/Character/btCharacterController
 src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btGhostObject.h
 src/player.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
 src/player.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h
+src/world_loader.o: /usr/include/bullet/btBulletDynamicsCommon.h
+src/world_loader.o: /usr/include/bullet/btBulletCollisionCommon.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btVector3.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btScalar.h
+src/world_loader.o: /usr/include/math.h /usr/include/features.h
+src/world_loader.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+src/world_loader.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h
+src/world_loader.o: /usr/include/bits/huge_val.h
+src/world_loader.o: /usr/include/bits/huge_valf.h
+src/world_loader.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
+src/world_loader.o: /usr/include/bits/nan.h /usr/include/bits/mathdef.h
+src/world_loader.o: /usr/include/bits/mathcalls.h /usr/include/stdlib.h
+src/world_loader.o: /usr/include/bits/waitflags.h
+src/world_loader.o: /usr/include/bits/waitstatus.h /usr/include/endian.h
+src/world_loader.o: /usr/include/bits/endian.h /usr/include/bits/byteswap.h
+src/world_loader.o: /usr/include/xlocale.h /usr/include/sys/types.h
+src/world_loader.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+src/world_loader.o: /usr/include/time.h /usr/include/sys/select.h
+src/world_loader.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+src/world_loader.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+src/world_loader.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+src/world_loader.o: /usr/include/assert.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btMinMax.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btTransform.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btMatrix3x3.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btVector3.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btQuaternion.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btQuadWord.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionObject.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btMotionState.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btTransform.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btAlignedAllocator.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btAlignedObjectArray.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btAlignedAllocator.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btDispatcher.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btScalar.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/NarrowPhaseCollision/btPersistentManifold.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/NarrowPhaseCollision/btManifoldPoint.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btTransformUtil.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btManifoldResult.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/NarrowPhaseCollision/btDiscreteCollisionDetectorInterface.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionCreateFunc.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCache.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btBroadphaseInterface.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionObject.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btBoxShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btPolyhedralConvexShape.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btMatrix3x3.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConvexInternalShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConvexShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btCollisionShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btCollisionMargin.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btAabbUtil2.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btMinMax.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btSphereShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btCapsuleShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btCylinderShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btBoxShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConeShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btStaticPlaneShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConcaveShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleCallback.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConvexHullShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleMesh.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btStridingMeshInterface.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleMeshShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btOptimizedBvh.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btQuantizedBvh.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleInfoMap.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btHashMap.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btAlignedObjectArray.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btSerializer.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btStackAlloc.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btHashMap.h
+src/world_loader.o: /usr/include/memory.h /usr/include/string.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleMeshShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btCompoundShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btTetrahedronShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btEmptyShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btMultiSphereShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionShapes/btUniformScalingShape.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btActivatingCollisionAlgorithm.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionCreateFunc.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionConfiguration.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btSimpleBroadphase.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCache.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btDbvt.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btMultiSapBroadphase.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btQuaternion.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btDefaultMotionState.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btMotionState.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btQuickprof.h
+src/world_loader.o: /usr/include/stdio.h /usr/include/libio.h
+src/world_loader.o: /usr/include/_G_config.h /usr/include/wchar.h
+src/world_loader.o: /usr/include/bits/wchar.h /usr/include/bits/stdio_lim.h
+src/world_loader.o: /usr/include/bits/sys_errlist.h
+src/world_loader.o: /usr/include/bullet/LinearMath/btIDebugDraw.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Dynamics/btDynamicsWorld.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btContactSolverInfo.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Dynamics/btSimpleDynamicsWorld.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Dynamics/btRigidBody.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btJacobianEntry.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btTypedConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btSolverConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btSolverBody.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btHingeConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btConeTwistConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btSliderConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btUniversalConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btHinge2Constraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btConstraintSolver.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btContactConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/NarrowPhaseCollision/btManifoldPoint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Vehicle/btRaycastVehicle.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/ConstraintSolver/btTypedConstraint.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Vehicle/btVehicleRaycaster.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Vehicle/btWheelInfo.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Dynamics/btActionInterface.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Dynamics/btRigidBody.h
+src/world_loader.o: /usr/include/bullet/BulletWorldImporter/btBulletWorldImporter.h
+src/world_loader.o: /usr/include/assimp/assimp.hpp
+src/world_loader.o: /usr/include/assimp/aiTypes.h
+src/world_loader.o: /usr/include/assimp/aiDefines.h
+src/world_loader.o: /usr/include/assimp/aiVector3D.h
+src/world_loader.o: /usr/include/assimp/./Compiler/pushpack1.h
+src/world_loader.o: /usr/include/assimp/./Compiler/poppack1.h
+src/world_loader.o: /usr/include/assimp/aiVector2D.h
+src/world_loader.o: /usr/include/assimp/aiColor4D.h
+src/world_loader.o: /usr/include/assimp/aiMatrix3x3.h
+src/world_loader.o: /usr/include/assimp/aiMatrix4x4.h
+src/world_loader.o: /usr/include/assimp/aiQuaternion.h
+src/world_loader.o: /usr/include/assimp/aiVector3D.inl
+src/world_loader.o: /usr/include/assimp/aiColor4D.inl
+src/world_loader.o: /usr/include/assimp/aiMatrix3x3.inl
+src/world_loader.o: /usr/include/assimp/aiMatrix4x4.inl
+src/world_loader.o: /usr/include/assimp/aiConfig.h
+src/world_loader.o: /usr/include/assimp/aiAssert.h src/world_loader.h
+src/world_loader.o: /usr/include/assimp/assimp.hpp
+src/world_loader.o: /usr/include/assimp/aiScene.h
+src/world_loader.o: /usr/include/assimp/aiTexture.h
+src/world_loader.o: /usr/include/assimp/aiMesh.h
+src/world_loader.o: /usr/include/assimp/aiLight.h
+src/world_loader.o: /usr/include/assimp/aiCamera.h
+src/world_loader.o: /usr/include/assimp/aiMaterial.h
+src/world_loader.o: /usr/include/assimp/aiAnim.h
+src/world_loader.o: /usr/include/assimp/aiPostProcess.h src/world.h
+src/world_loader.o: src/gl_graphics.h src/object_gl.h /usr/include/GL/glew.h
+src/world_loader.o: /usr/include/stdint.h /usr/include/GL/glu.h
+src/world_loader.o: /usr/include/GL/gl.h /usr/include/SDL/SDL.h
+src/world_loader.o: /usr/include/SDL/SDL_main.h /usr/include/SDL/SDL_stdinc.h
+src/world_loader.o: /usr/include/SDL/SDL_config.h
+src/world_loader.o: /usr/include/SDL/SDL_platform.h /usr/include/inttypes.h
+src/world_loader.o: /usr/include/ctype.h /usr/include/iconv.h
+src/world_loader.o: /usr/include/SDL/begin_code.h
+src/world_loader.o: /usr/include/SDL/close_code.h
+src/world_loader.o: /usr/include/SDL/SDL_audio.h /usr/include/SDL/SDL_error.h
+src/world_loader.o: /usr/include/SDL/SDL_endian.h
+src/world_loader.o: /usr/include/SDL/SDL_mutex.h
+src/world_loader.o: /usr/include/SDL/SDL_thread.h
+src/world_loader.o: /usr/include/SDL/SDL_rwops.h /usr/include/SDL/SDL_cdrom.h
+src/world_loader.o: /usr/include/SDL/SDL_cpuinfo.h
+src/world_loader.o: /usr/include/SDL/SDL_events.h
+src/world_loader.o: /usr/include/SDL/SDL_active.h
+src/world_loader.o: /usr/include/SDL/SDL_keyboard.h
+src/world_loader.o: /usr/include/SDL/SDL_keysym.h
+src/world_loader.o: /usr/include/SDL/SDL_mouse.h /usr/include/SDL/SDL_video.h
+src/world_loader.o: /usr/include/SDL/SDL_joystick.h
+src/world_loader.o: /usr/include/SDL/SDL_quit.h /usr/include/SDL/SDL_loadso.h
+src/world_loader.o: /usr/include/SDL/SDL_timer.h
+src/world_loader.o: /usr/include/SDL/SDL_version.h
+src/world_loader.o: /usr/include/boost/function.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/iterate.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/iteration/iterate.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/arithmetic/dec.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/config/config.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/arithmetic/inc.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/array/elem.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/array/data.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/tuple/elem.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/cat.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/facilities/overload.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/variadic/size.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/tuple/rem.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/variadic/elem.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/array/size.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/slot/slot.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/slot/detail/def.hpp
+src/world_loader.o: /usr/include/boost/detail/workaround.hpp
+src/world_loader.o: /usr/include/boost/config.hpp
+src/world_loader.o: /usr/include/boost/function/detail/prologue.hpp
+src/world_loader.o: /usr/include/boost/config/no_tr1/functional.hpp
+src/world_loader.o: /usr/include/boost/throw_exception.hpp
+src/world_loader.o: /usr/include/boost/exception/detail/attribute_noreturn.hpp
+src/world_loader.o: /usr/include/boost/function/function_base.hpp
+src/world_loader.o: /usr/include/boost/detail/sp_typeinfo.hpp
+src/world_loader.o: /usr/include/boost/assert.hpp
+src/world_loader.o: /usr/include/boost/current_function.hpp
+src/world_loader.o: /usr/include/boost/integer.hpp
+src/world_loader.o: /usr/include/boost/integer_fwd.hpp
+src/world_loader.o: /usr/include/boost/limits.hpp
+src/world_loader.o: /usr/include/boost/cstdint.hpp /usr/include/limits.h
+src/world_loader.o: /usr/include/bits/posix1_lim.h
+src/world_loader.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+src/world_loader.o: /usr/include/bits/posix2_lim.h
+src/world_loader.o: /usr/include/bits/xopen_lim.h
+src/world_loader.o: /usr/include/boost/integer_traits.hpp
+src/world_loader.o: /usr/include/boost/type_traits/has_trivial_copy.hpp
+src/world_loader.o: /usr/include/boost/type_traits/config.hpp
+src/world_loader.o: /usr/include/boost/type_traits/intrinsics.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_volatile.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/cv_traits_impl.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/yes_no_type.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/bool_trait_def.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/template_arity_spec.hpp
+src/world_loader.o: /usr/include/boost/mpl/int.hpp
+src/world_loader.o: /usr/include/boost/mpl/int_fwd.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/adl_barrier.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/adl.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/msvc.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/intel.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/gcc.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/workaround.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/nttp_decl.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/nttp.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/integral_wrapper.hpp
+src/world_loader.o: /usr/include/boost/mpl/integral_c_tag.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/static_constant.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/static_cast.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/template_arity_fwd.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/preprocessor/params.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/preprocessor.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/comma_if.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/punctuation/comma_if.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/control/if.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/control/iif.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/logical/bool.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/facilities/empty.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/punctuation/comma.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/repeat.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/repetition/repeat.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/debug/error.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/detail/auto_rec.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/tuple/eat.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/inc.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/lambda.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/ttp.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/ctps.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/overload_resolution.hpp
+src/world_loader.o: /usr/include/boost/type_traits/integral_constant.hpp
+src/world_loader.o: /usr/include/boost/mpl/bool.hpp
+src/world_loader.o: /usr/include/boost/mpl/bool_fwd.hpp
+src/world_loader.o: /usr/include/boost/mpl/integral_c.hpp
+src/world_loader.o: /usr/include/boost/mpl/integral_c_fwd.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/lambda_support.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/yes_no.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/arrays.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/na_fwd.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/preprocessor/enum.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/tuple/to_list.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/list/for_each_i.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/list/adt.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/detail/is_binary.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/detail/check.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/logical/compl.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/repetition/for.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/repetition/detail/for.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/control/expr_iif.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/bool_trait_undef.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_pod.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_void.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_scalar.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_arithmetic.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_integral.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_float.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/ice_or.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_enum.hpp
+src/world_loader.o: /usr/include/boost/type_traits/add_reference.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_reference.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_lvalue_reference.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_rvalue_reference.hpp
+src/world_loader.o: /usr/include/boost/type_traits/ice.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/ice_and.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/ice_not.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/ice_eq.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/type_trait_def.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/type_trait_undef.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_convertible.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_array.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_abstract.hpp
+src/world_loader.o: /usr/include/boost/static_assert.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_class.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_union.hpp
+src/world_loader.o: /usr/include/boost/type_traits/remove_cv.hpp
+src/world_loader.o: /usr/include/boost/type_traits/broken_compiler_spec.hpp
+src/world_loader.o: /usr/include/boost/type_traits/add_rvalue_reference.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_function.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/false_result.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/is_function_ptr_helper.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_pointer.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_member_pointer.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_member_function_pointer.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp
+src/world_loader.o: /usr/include/boost/type_traits/has_trivial_destructor.hpp
+src/world_loader.o: /usr/include/boost/type_traits/is_const.hpp
+src/world_loader.o: /usr/include/boost/type_traits/composite_traits.hpp
+src/world_loader.o: /usr/include/boost/ref.hpp
+src/world_loader.o: /usr/include/boost/utility/addressof.hpp
+src/world_loader.o: /usr/include/boost/mpl/if.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/value_wknd.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/integral.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/eti.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/na_spec.hpp
+src/world_loader.o: /usr/include/boost/mpl/lambda_fwd.hpp
+src/world_loader.o: /usr/include/boost/mpl/void_fwd.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/na.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/arity.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/config/dtp.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/preprocessor/def_params_tail.hpp
+src/world_loader.o: /usr/include/boost/mpl/limits/arity.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/logical/and.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/logical/bitand.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/identity.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/facilities/identity.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/empty.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/arithmetic/add.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/control/while.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/list/fold_left.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/list/detail/fold_left.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/list/fold_right.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/list/detail/fold_right.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/list/reverse.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/control/detail/while.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/arithmetic/sub.hpp
+src/world_loader.o: /usr/include/boost/mpl/aux_/lambda_arity_param.hpp
+src/world_loader.o: /usr/include/boost/type_traits/alignment_of.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/size_t_trait_def.hpp
+src/world_loader.o: /usr/include/boost/mpl/size_t.hpp
+src/world_loader.o: /usr/include/boost/mpl/size_t_fwd.hpp
+src/world_loader.o: /usr/include/boost/type_traits/detail/size_t_trait_undef.hpp
+src/world_loader.o: /usr/include/boost/utility/enable_if.hpp
+src/world_loader.o: /usr/include/boost/function_equal.hpp
+src/world_loader.o: /usr/include/boost/function/function_fwd.hpp
+src/world_loader.o: /usr/include/boost/mem_fn.hpp
+src/world_loader.o: /usr/include/boost/bind/mem_fn.hpp
+src/world_loader.o: /usr/include/boost/get_pointer.hpp
+src/world_loader.o: /usr/include/boost/config/no_tr1/memory.hpp
+src/world_loader.o: /usr/include/boost/bind/mem_fn_template.hpp
+src/world_loader.o: /usr/include/boost/bind/mem_fn_cc.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/enum.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/repetition/enum.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/enum_params.hpp
+src/world_loader.o: /usr/include/boost/preprocessor/repetition/enum_params.hpp
+src/world_loader.o: src/bullet_physics.h src/object.h src/player.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Character/btKinematicCharacterController.h
+src/world_loader.o: /usr/include/bullet/BulletDynamics/Character/btCharacterControllerInterface.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btGhostObject.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
+src/world_loader.o: /usr/include/bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h
 src/world.o: src/gl_graphics.h src/object_gl.h /usr/include/GL/glew.h
 src/world.o: /usr/include/stdint.h /usr/include/features.h
 src/world.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h

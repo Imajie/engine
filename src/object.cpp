@@ -13,20 +13,29 @@
 #define VERT_IDX	1
 
 // load object from file
-Object::Object(World *world, const char *filename, btVector3 color)
+Object::Object(World *world, const aiScene *scene, const aiNode *node, btCollisionObject *body)
 	:
 		world(world)
 {
-	fprintf(stderr, "NOT IMPLEMENTED");
-	exit(1);
+	// data
+	std::vector<vertex_t> v_data_vec;
+	std::vector<GLuint>   e_data_vec;
+	processNode( scene, node, v_data_vec, e_data_vec );
+
+	// get a material
+	aiMaterial *material = NULL;
+	if( node->mNumMeshes > 0 )
+		material = scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex];
+
+	createObject(&v_data_vec[0], v_data_vec.size(), &e_data_vec[0], e_data_vec.size(), body, material);
 }
 
 // create object with specified data
-Object::Object(World *world, vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btRigidBody *body, btVector3 color)
+Object::Object(World *world, vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btCollisionObject *body, btVector3 color)
 	:
 		world(world)
 {
-	createObject(v_data, v_size, e_data, e_size, body, color);
+	createObject(v_data, v_size, e_data, e_size, body, NULL);
 }
 
 // cleanup memory
@@ -40,15 +49,62 @@ Object::~Object()
 	world->getPhysics()->removeObject(bullet);
 }
 
+// load in an aiNode
+void Object::processNode( const aiScene *scene, const aiNode *node, std::vector<vertex_t> &v_data, std::vector<GLuint> &e_data )
+{
+	// process this node
+	// 	process each mesh
+	printf("Node %s has %lu meshes\n", node->mName.data, node->mNumMeshes);
+	for( size_t mIdx = 0; mIdx < node->mNumMeshes; mIdx++ )
+	{
+		aiMesh *mesh = scene->mMeshes[node->mMeshes[mIdx]];
+
+		// process each face in this mesh
+		for( size_t fIdx = 0; fIdx < mesh->mNumFaces; fIdx++ )
+		{
+			aiFace face = mesh->mFaces[fIdx];
+			// add each vertex in the face
+			for( size_t iIdx = 0; iIdx < face.mNumIndices; iIdx++ )
+			{
+				vertex_t vertex;
+
+				// position
+				vertex.x = mesh->mVertices[face.mIndices[iIdx]].x;
+				vertex.y = mesh->mVertices[face.mIndices[iIdx]].y;
+				vertex.z = mesh->mVertices[face.mIndices[iIdx]].z;
+
+				// normal
+				vertex.nx = mesh->mNormals[face.mIndices[iIdx]].x;
+				vertex.ny = mesh->mNormals[face.mIndices[iIdx]].y;
+				vertex.nz = mesh->mNormals[face.mIndices[iIdx]].z;
+
+				// texture
+				vertex.u = mesh->mTextureCoords[face.mIndices[iIdx]][0].x;
+				vertex.v = mesh->mTextureCoords[face.mIndices[iIdx]][0].y;
+
+				v_data.push_back(vertex);
+				e_data.push_back(v_data.size());
+			}
+		}
+	}
+
+	// process any children
+	printf("Node %s has %lu children\n", node->mName.data, node->mNumChildren);
+	for( size_t cIdx = 0; cIdx < node->mNumChildren; cIdx++ )
+	{
+		processNode( scene, node->mChildren[cIdx], v_data, e_data );
+	}
+}
+
 // create the actual object
-void Object::createObject(vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btRigidBody *body, btVector3 c)
+void Object::createObject(vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btCollisionObject *body, aiMaterial *material)
 {
 	vertex_data = v_data;
 	vertex_count = v_size;
 	edges = e_data;
 	edge_count = e_size;
 	bullet = body;
-	color = c;
+	this->material = material;
 
 	// generate and bind OpenGL buffers
 	glGenBuffers( 2, gl_buf );
@@ -69,23 +125,38 @@ void Object::draw( void )
 
 	// get the current state of the object
 	btTransform trans;
-	bullet->getMotionState()->getWorldTransform(trans);
+	trans = bullet->getWorldTransform();
 
 	// pass the transform to the shader
-	world->getGraphics()->setModelTransform( trans );
+	world->getGraphics()->setModelTransform(trans);
 
 	// set lighting
-	float ambient_diffuse[3];
-	float spec[3];
+	aiColor3D ambient_diffuse;
+	aiColor3D spec;
+	double shininess;
 
-	ambient_diffuse[0] = color.getX();
-	ambient_diffuse[1] = color.getY();
-	ambient_diffuse[2] = color.getZ();
+	if( material )
+	{
+		if( material->Get(AI_MATKEY_COLOR_DIFFUSE, ambient_diffuse) != AI_SUCCESS )
+		{
+			fprintf(stderr, "No diffuse color\n");
+		}
+		if( material->Get(AI_MATKEY_COLOR_SPECULAR, spec) != AI_SUCCESS )
+		{
+			fprintf(stderr, "No specular color\n");
+		}
+		if( material->Get(AI_MATKEY_SHININESS_STRENGTH, shininess) != AI_SUCCESS )
+		{
+			fprintf(stderr, "No specular color\n");
+		}
+	}
+	else
+	{
+		//fprintf(stderr, "No material\n");
+	}
 
-	spec[0] = spec[1] = spec[2] = 1.0;
+	world->getGraphics()->setLightingParams( ambient_diffuse, ambient_diffuse, spec, shininess );
 
-	world->getGraphics()->setLightingParams( ambient_diffuse, ambient_diffuse, spec, 10 );
-	
 	// draw the element
 	world->getGraphics()->setAttribPointers();
 	glDrawElements( GL_TRIANGLES, vertex_count, GL_UNSIGNED_INT, BUFFER_OFFSET(0) );

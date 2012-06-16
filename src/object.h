@@ -11,15 +11,16 @@ class World;
 
 #include <btBulletDynamicsCommon.h>
 #include "object_gl.h"
+#include <aiScene.h>
 
 class Object
 {
 	public:
 		// load object from file
-		Object(World *world, const char *filename, btVector3 color);
+		Object(World *world, const aiScene *scene, const aiNode *node, btCollisionObject *body);
 
 		// create object with specified data
-		Object(World *world, vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btRigidBody *body, btVector3 color);
+		Object(World *world, vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btCollisionObject *body, btVector3 color);
 
 		// cleanup memory
 		~Object();
@@ -28,14 +29,17 @@ class Object
 		void draw(void);
 
 	private:
+		// load in an aiNode
+		void processNode( const aiScene *scene, const aiNode *node, std::vector<vertex_t> &v_data, std::vector<GLuint> &e_data );
+
 		// create the actual object
-		void createObject(vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btRigidBody *body, btVector3 color);
+		void createObject(vertex_t *v_data, size_t v_size, GLuint *e_data, size_t e_size, btCollisionObject *body, aiMaterial *material);
 
 		// The world we are in
 		World *world;
 
 		// The bullet instance of this object
-		btRigidBody *bullet;
+		btCollisionObject *bullet;
 
 		// The OpenGL buffers
 		GLuint gl_buf[2];
@@ -48,8 +52,8 @@ class Object
 		GLuint *edges;
 		size_t edge_count;
 
-		// object color
-		btVector3 color;
+		// material
+		aiMaterial *material;
 };
 
 #endif

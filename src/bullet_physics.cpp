@@ -38,8 +38,7 @@ BulletPhysics::~BulletPhysics()
 	// delete all objects
 	for( size_t i = 0; i < objects.size(); i++ )
 	{
-		world->removeRigidBody(objects[i]);
-		delete objects[i]->getMotionState();
+		world->removeCollisionObject(objects[i]);
 		delete objects[i];
 	}
 
@@ -61,7 +60,29 @@ BulletPhysics::~BulletPhysics()
 /*
  * Add an arbitrary object to the world
  */
-btRigidBody* BulletPhysics::addObject(double mass, btDefaultMotionState *motionState, btCollisionShape *collisionShape, btVector3 inertia)
+btCollisionObject* BulletPhysics::addObject(btCollisionObject *body)
+{
+	btRigidBody *rigid = btRigidBody::upcast(body);
+	if( !rigid )
+	{
+		short mask;
+		short group;
+		bool dynamic = !(body->isStaticObject() || body->isKinematicObject());
+
+		group = dynamic ? btBroadphaseProxy::DefaultFilter : btBroadphaseProxy::StaticFilter;
+		mask  = dynamic ? btBroadphaseProxy::AllFilter : (btBroadphaseProxy::AllFilter^btBroadphaseProxy::StaticFilter);
+
+		world->addCollisionObject(body, group, mask);
+	}
+	else
+	{
+		world->addRigidBody( rigid );
+	}
+	objects.push_back(body);
+	return body;
+}
+
+btCollisionObject* BulletPhysics::addObject(double mass, btDefaultMotionState *motionState, btCollisionShape *collisionShape, btVector3 inertia)
 {
 	btRigidBody::btRigidBodyConstructionInfo info = btRigidBody::btRigidBodyConstructionInfo(mass, motionState, collisionShape, inertia);
 
@@ -70,8 +91,9 @@ btRigidBody* BulletPhysics::addObject(double mass, btDefaultMotionState *motionS
 	info.m_friction = 0.2;
 
 	btRigidBody *body = new btRigidBody( info );
-	world->addRigidBody(body);
-	objects.push_back(body);
+
+	addObject(body);
+
 	collisionShapes.push_back(collisionShape);
 
 	return body;
@@ -80,10 +102,9 @@ btRigidBody* BulletPhysics::addObject(double mass, btDefaultMotionState *motionS
 /*
  * Remove an arbitrary object from the world
  */
-void BulletPhysics::removeObject(btRigidBody *body)
+void BulletPhysics::removeObject(btCollisionObject *body)
 {
-	world->removeRigidBody(body);
-	delete body->getMotionState();
+	world->removeCollisionObject(body);
 	delete body;
 
 	// remove the object from our list

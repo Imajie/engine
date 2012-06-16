@@ -110,12 +110,25 @@ void GLGraphics::setAttribPointers( void )
 	glEnableVertexAttribArray(texture_loc);
 }
 
-void GLGraphics::setLightingParams( float* ambient, float* diffuse, float* specular, float shininess )
+void GLGraphics::setLightingParams( aiColor3D ambient, aiColor3D diffuse, aiColor3D specular, float shininess )
 {
+	float a[3], d[3], s[3];
+	a[0] = ambient.r;
+	a[1] = ambient.g;
+	a[2] = ambient.b;
+
+	d[0] = diffuse.r;
+	d[1] = diffuse.g;
+	d[2] = diffuse.b;
+
+	s[0] = specular.r;
+	s[1] = specular.g;
+	s[2] = specular.b;
+
 	glUniform1f( shininess_loc, shininess );
-	glUniform3fv( ambient_loc, 1, ambient );
-	glUniform3fv( diffuse_loc, 1, diffuse );
-	glUniform3fv( specular_loc, 1, specular );
+	glUniform3fv( ambient_loc, 1, a );
+	glUniform3fv( diffuse_loc, 1, d );
+	glUniform3fv( specular_loc, 1, s );
 
 	float data[4];
 	data[0] = 0.0;

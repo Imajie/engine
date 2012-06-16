@@ -25,12 +25,13 @@ class BulletPhysics
 		/*
 		 * Add an arbitrary object to the world
 		 */
-		btRigidBody* addObject(double mass, btDefaultMotionState *motionState, btCollisionShape *collisionShape, btVector3 inertia);
+		btCollisionObject* addObject(btCollisionObject *body);
+		btCollisionObject* addObject(double mass, btDefaultMotionState *motionState, btCollisionShape *collisionShape, btVector3 inertia);
 
 		/*
 		 * Remove an arbitrary object from the world
 		 */
-		void removeObject(btRigidBody *body);
+		void removeObject(btCollisionObject *body);
 
 		/* 
 		 * run the world for deltaT time 
@@ -51,7 +52,7 @@ class BulletPhysics
 		btSequentialImpulseConstraintSolver *solver;
 
 		// objects in the world
-		std::vector<btRigidBody*> objects;
+		std::vector<btCollisionObject*> objects;
 
 		// collision shapes in the world
 		std::vector<btCollisionShape*> collisionShapes;

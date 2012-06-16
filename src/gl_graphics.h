@@ -10,6 +10,7 @@
 #include <SDL/SDL.h>
 #include <boost/function.hpp>
 #include <btBulletDynamicsCommon.h>
+#include <aiLight.h>
 
 #define RUN_GAME_LOOP	1
 
@@ -41,7 +42,7 @@ class GLGraphics
 		void setViewTransform( btTransform view );
 
 		// lighting
-		void setLightingParams( float* ambient, float* diffuse, float* specular, float shininess );
+		void setLightingParams( aiColor3D ambient, aiColor3D diffuse, aiColor3D specular, float shininess );
 
 		// reset attrib pointers
 		void setAttribPointers(void);
